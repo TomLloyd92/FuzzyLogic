@@ -3,6 +3,8 @@
 #include <iostream>
 #include <array>
 
+#include "FuzzyLogic.h"
+
 class GamePlay
 {
 public:
@@ -15,4 +17,7 @@ public:
 private:
 	//Font
 	sf::Font m_font;
+
+	FuzzyLogic FL;
+
 };

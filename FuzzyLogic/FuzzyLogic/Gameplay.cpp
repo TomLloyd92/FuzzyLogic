@@ -10,6 +10,7 @@ GamePlay::~GamePlay()
 
 void GamePlay::update(sf::Time t_deltaTime, sf::RenderWindow& t_window)
 {
+	FL.threatLevel(8,25);
 }
 
 void GamePlay::render(sf::RenderWindow& t_window)
