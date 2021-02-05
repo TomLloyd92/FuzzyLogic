@@ -1,0 +1,8 @@
+﻿  Game.cpp
+C:\Users\tomll\Desktop\Fuzzy Logic\FuzzyLogic\FuzzyLogic\FuzzyLogic\Globals.h(16,38): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\tomll\Desktop\Fuzzy Logic\FuzzyLogic\FuzzyLogic\FuzzyLogic\Game.cpp(16,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Gameplay.cpp
+  main.cpp
+C:\Users\tomll\Desktop\Fuzzy Logic\FuzzyLogic\FuzzyLogic\FuzzyLogic\Globals.h(16,38): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Generating Code...
+  FuzzyLogic.vcxproj -> C:\Users\tomll\Desktop\Fuzzy Logic\FuzzyLogic\FuzzyLogic\Debug\FuzzyLogic.exe
