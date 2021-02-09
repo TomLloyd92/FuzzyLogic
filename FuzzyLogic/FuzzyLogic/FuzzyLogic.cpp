@@ -8,43 +8,43 @@ FuzzyLogic::~FuzzyLogic()
 {
 }
 
-void FuzzyLogic::threatLevel(float t_amountEnimies, float t_distance)
+float FuzzyLogic::threatLevel(float t_amountEnimies, float t_distance)
 {
 	//Probability functions
-	enemiesFuzzy(t_amountEnimies);
-	distanceFuzzy(t_distance);
+	m_enemiesFuzzy(t_amountEnimies);
+	m_distanceFuzzy(t_distance);
 
 	//Rule Implementation
-	ruleMatrix();
+	m_ruleMatrix();
 
 	//Defuzzification
-	unitDeploy();
+	float deploy = m_unitDeploy();
 
-
+	return deploy;
 }
 
-void FuzzyLogic::enemiesFuzzy(float t_amountEnimies)
+void FuzzyLogic::m_enemiesFuzzy(float t_amountEnimies)
 {
 	//Enimies Amount Probability
-	m_tiny = fuzzyTriangle(t_amountEnimies, -TINY_END, TINY_START, TINY_END);
-	m_small = fuzzyTrap(t_amountEnimies, SMALL_START, SMALL_FIRST_PEAK, SMALL_SECOND_PEAK, SMALL_END);
-	m_moderate = fuzzyTrap(t_amountEnimies, MODERATE_START, MODERATE_FIRST_PEAK, MODERATE_SECOND_PEAK, MODERATE_END);
-	m_large = fuzzyGrade(t_amountEnimies, LARGE_START, LARGE_PEAK);
+	m_tiny = m_fuzzyTriangle(t_amountEnimies, -TINY_END, TINY_START, TINY_END);
+	m_small = m_fuzzyTrap(t_amountEnimies, SMALL_START, SMALL_FIRST_PEAK, SMALL_SECOND_PEAK, SMALL_END);
+	m_moderate = m_fuzzyTrap(t_amountEnimies, MODERATE_START, MODERATE_FIRST_PEAK, MODERATE_SECOND_PEAK, MODERATE_END);
+	m_large = m_fuzzyGrade(t_amountEnimies, LARGE_START, LARGE_PEAK);
 
 	//Debug Tests
-	/*
+	
 	std::cout << "Tiny: " << m_tiny << std::endl;
 	std::cout << "small: " << m_small << std::endl;
 	std::cout << "Moderate: " << m_moderate << std::endl;
 	std::cout << "large: " << m_large << std::endl;
-	*/
+	
 }
 
-void FuzzyLogic::distanceFuzzy(float t_distance)
+void FuzzyLogic::m_distanceFuzzy(float t_distance)
 {
-	m_close = fuzzyTriangle(t_distance, -CLOSE_DISTANCE_END, CLOSE_DISTANCE_START, CLOSE_DISTANCE_END);
-	m_medium = fuzzyTrap(t_distance, MEDIUM_DISTANCE_START, MEDIUM_DISTANCE_FIRST_PEAK, MEDIUM_DISTANCE_SECOND_PEAK, MEDIUM_DISTANCE_END);
-	m_far = fuzzyGrade(t_distance ,FAR_START, FARPEAK);
+	m_close = m_fuzzyTriangle(t_distance, -CLOSE_DISTANCE_END, CLOSE_DISTANCE_START, CLOSE_DISTANCE_END);
+	m_medium = m_fuzzyTrap(t_distance, MEDIUM_DISTANCE_START, MEDIUM_DISTANCE_FIRST_PEAK, MEDIUM_DISTANCE_SECOND_PEAK, MEDIUM_DISTANCE_END);
+	m_far = m_fuzzyGrade(t_distance ,FAR_START, FARPEAK);
 
 	//Debug Tests
 	
@@ -52,23 +52,24 @@ void FuzzyLogic::distanceFuzzy(float t_distance)
 	std::cout << "Medium: " << m_medium << std::endl;
 	std::cout << "Far: " << m_far << std::endl;
 	
-
 }
 
-void FuzzyLogic::ruleMatrix()
+void FuzzyLogic::m_ruleMatrix()
 {
-	m_lowThreat = fuzzyOR(fuzzyAND(m_medium, m_tiny), fuzzyAND(m_medium, m_small));
-	m_mediumThreat = fuzzyAND(m_close, m_tiny);
-	m_highThreat = fuzzyAND(m_close, fuzzyNOT(m_medium));
+	//Code implementation of the Rule for threat matrix
+	m_lowThreat = m_fuzzyOR(m_fuzzyAND(m_medium, m_tiny), m_fuzzyAND(m_medium, m_small));
+	m_mediumThreat = m_fuzzyAND(m_close, m_tiny);
+	m_highThreat = m_fuzzyAND(m_close, m_fuzzyNOT(m_medium));
 }
 
-void FuzzyLogic::unitDeploy()
+float FuzzyLogic::m_unitDeploy()
 {
+	//Final Decider on how many units to deploy
 	m_deployment = (m_lowThreat * LOW + m_mediumThreat * MEDIUM + m_highThreat * HIGH) / (m_lowThreat + m_mediumThreat + m_highThreat);
-	std::cout << m_deployment << std::endl;
+	return m_deployment;
 }
 
-float FuzzyLogic::fuzzyGrade(float value, float x0, float x1)
+float FuzzyLogic::m_fuzzyGrade(float value, float x0, float x1)
 {
 	float result = 0;
 	float x = value;
@@ -92,7 +93,7 @@ float FuzzyLogic::fuzzyGrade(float value, float x0, float x1)
 	return result;
 }
 
-float FuzzyLogic::fuzzyTriangle(float value, float x0, float x1, float x2)
+float FuzzyLogic::m_fuzzyTriangle(float value, float x0, float x1, float x2)
 {
 	float result = 0;
 	float x = value;
@@ -121,7 +122,7 @@ float FuzzyLogic::fuzzyTriangle(float value, float x0, float x1, float x2)
 	return result;
 }
 
-float FuzzyLogic::fuzzyTrap(float value, float x0, float x1, float x2, float x3)
+float FuzzyLogic::m_fuzzyTrap(float value, float x0, float x1, float x2, float x3)
 {
 	float result = 0;
 

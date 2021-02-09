@@ -3,6 +3,8 @@
 #include <iostream>
 #include <array>
 
+#include "Germans.h"
+#include "British.h"
 #include "FuzzyLogic.h"
 
 class GamePlay
@@ -18,6 +20,23 @@ private:
 	//Font
 	sf::Font m_font;
 
+	//Background
+	sf::Sprite m_background;
+	sf::Texture m_backgroundTexture;
+
+	
 	FuzzyLogic FL;
+	Germans m_germans;
+	British m_british;
+
+	bool troopsSent = false;
+	bool m_sendTroops = false;
+
+	void sendForces();
+
+	float m_amount = 0;
+	float m_distance = 0;
+
+
 
 };

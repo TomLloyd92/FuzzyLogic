@@ -1,15 +1,7 @@
 #pragma once
 
-#include <iostream>
-#include <algorithm>    // std::min
-
-//Threat level Enum
-enum ThreatLevel
-{
-	Low,
-	Medium,
-	High
-};
+#include <iostream>		//String
+#include <algorithm>	//Min Max
 
 //Fuzzy logic class
 class FuzzyLogic
@@ -20,30 +12,32 @@ public:
 	~FuzzyLogic();
 
 	//Threat Calculation
-	void threatLevel(float t_amountEnimies, float t_distance);
+	float threatLevel(float t_amountEnimies, float t_distance);
 
-	//Range
-	void enemiesFuzzy(float t_amountEnimies);
-	//Distance
-	void distanceFuzzy(float t_distance);
-	//Rule Matrix Function
-	void ruleMatrix();
-	//Defuzz
-	void unitDeploy();
+	//Get Deployment
+	float getDeployment() { return m_deployment; };
 
-
-
-	//Graph Functions
-	float fuzzyGrade(float value, float x0, float x1);
-	float fuzzyTriangle(float value, float x0, float x1, float x2);
-	float fuzzyTrap(float value, float x0, float x1, float x2, float x3);
-
-	//And Or Not Functions
-	float fuzzyAND(float A, float B) { return std::min(A, B); };
-	float fuzzyOR(float A, float B) { return std::max(A, B); };
-	float fuzzyNOT(double A) { return 1.0 - A; };
 
 private:
+	//Range
+	void m_enemiesFuzzy(float t_amountEnimies);
+	//Distance
+	void m_distanceFuzzy(float t_distance);
+	//Rule Matrix Function
+	void m_ruleMatrix();
+	//Defuzz
+	float m_unitDeploy();
+
+	//Graph Functions
+	float m_fuzzyGrade(float value, float x0, float x1);
+	float m_fuzzyTriangle(float value, float x0, float x1, float x2);
+	float m_fuzzyTrap(float value, float x0, float x1, float x2, float x3);
+
+	//And Or Not Functions
+	float m_fuzzyAND(float A, float B) { return std::min(A, B); };
+	float m_fuzzyOR(float A, float B) { return std::max(A, B); };
+	float m_fuzzyNOT(double A) { return 1.0 - A; };
+
 	//Size 
 	float m_tiny = 0;
 	float m_small = 0;
@@ -97,5 +91,5 @@ private:
 	const int HIGH = 50;
 
 	//Amount to be deployed
-	int m_deployment;
+	int m_deployment = 0;
 };

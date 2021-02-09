@@ -6,7 +6,7 @@
 
 GameMode Game::m_currentMode{ GameMode::Gameplay };
 
-Game::Game() : m_window{ sf::VideoMode{ SCREEN_WIDTH, SCREEN_HEIGHT, 32 }, "Tom Lloyd Lab 6 AI Games" }, m_exitGame{ false }
+Game::Game() : m_window{ sf::VideoMode{ SCREEN_WIDTH, SCREEN_HEIGHT, 32 }, "Tom Lloyd" }, m_exitGame{ false }
 {
 	setupAssets();
 }
@@ -89,11 +89,7 @@ void Game::render()
 
 void Game::setupAssets()
 {
-	//Setting up Font
-	if (!m_ArialBlackfont.loadFromFile("ASSETS\\FONTS\\College-Squad-Regular.otf"))
-	{
-		//std::cout << "problem loading arial Stardust Font" << std::endl;
-	}
+
 
 	m_gameplayScreen.setup(m_ArialBlackfont);
 }
